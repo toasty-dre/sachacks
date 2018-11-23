@@ -1,0 +1,173 @@
+<div style = "padding-left: 50px; padding-top: 10px; padding-right: 50px">
+    <p class="display-4">Predictive Models</p>
+
+    <p class="lead">From the insights we found in the data, we were able to perform predictive modeling on the data.
+    The objective of our work was to identify the best archetype for each player position that would give the highest
+    likelihood of winning the game. Through our analysis, we noticed that best archetype for winning a game is dependent
+    on the opponent as well as the playing team. </p>
+    <ol>
+			<li class="h3">Recommendation Engine:</li>
+			<p class="h5">What team should you select given the opponent's team?</p>
+
+			We created a recommendation engine/predictive tool for predicting what the best archetype line-up
+	    was given an opposing team line-up. Given the archetypes of all five positions of the opposing team,
+	    our model predicts the distribution over archetypes, with the highest probability given to the archetype of the position
+	    that will maximize the player's likelihood of winning over the opponent's team.
+
+
+			<br /><br /><p class="h5">Approach</p>
+	    First, we one hot encoded the five archetypes for each of the five players and created a one-hot-encoded
+	    vector of each of the teams that played in the 2K season. For our training set, we had every
+	    losing team as input, as the team that defeated them as output. This way, for any given input,
+	    we'd be predicting the team archetype distribution that would beat them, which translates
+	    well to our recommendation engine in recommending users of the tool the best team to
+	    select to beat a given opponent team.
+
+	    <p class="lead"> </p>
+
+	    <p class="h5">Results</p>
+	    The model ran with 91.73% cross validation accuracy.
+	    <br /><br /><p class="h6"><b>Example 1</b></p>
+	    To provide concrete examples,
+	    one of the cases we tested was the case where the opponent played the team:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Shot-creating Slasher</b>
+	    <br />Power Forward: <b>Slashing Rim Protector</b>
+	    <br />Center: <b>Rebounding Post Scorer</b>
+	    <br /><br />
+	    The optimal team archetype recommendation to go up against this team is:
+	    <br /><br />Point Guard: <b>Shot-creating Sharpshooter</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Shot-creating Slasher</b>
+	    <br />Power Forward: <b>Slashing Rim Protector</b>
+	    <br />Center: <b>Slashing Rebounder</b>
+
+	    <br /><br />Given the data of past games, this is a highly effective recommendation, because the
+	    combination of Shot-creating Sharpshooter (Point Guards) and Slashing Rebounder for Center
+	    results in wins and primarily positive results.
+
+	    <br /><br /><p class="h6"><b>Example 2</b></p>
+	    To provide concrete examples,
+	    one of the cases we tested was the case where the opponent played the team:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Pure Sharpshooter</b>
+	    <br />Power Forward: <b>Slashing Rim Protector</b>
+	    <br />Center: <b>Slashing Rebounder</b>
+	    <br /><br />
+	    The optimal team archetype recommendation to go up against this team is:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Pure Sharpshooter</b>
+	    <br />Power Forward: <b>Slashing Rim Protector</b>
+	    <br />Center: <b>Slashing Rebounder</b>
+
+	    <br /><br />Our predictive model recommendation engine found that the best team to go up against this team of heavy shooters/scorers, is an identical
+	    team of heavy shooters/scorers.
+	    <br /><br />In the future, we'd like to do more testing on the efficacy of our recommendations.
+	    <p class="lead"> </p>
+	    <br />
+
+	    <li class="h3">Game Outcome Predictor:</li><br />
+	    <p class="h5">Given the line-ups of 2 opposing teams, can we predict the outcome/winner?</p>
+
+	    Our game outcome predictive model take the archetype vectors of 2 opposing teams
+	    and predicts which team is more likely to win. The output is a 2-length vector of the probability of
+	    the first team winning, and the second entry is the probability of the second team winning.
+	    <br /><br /> Users of this tool can input two of their teams and examine the likelihood of either team winning
+	    and use these probabilities to establish some level of confidence on who they think will win the match. From our
+	    investigations, a probability of victory of 0.7 or greater is sufficient confidence to predict the winner of the game.
+
+
+			<br /><br /><p class="h5">Approach</p>
+	    For this predictor, we trained with a one-hot encoded vector of both teams, with the
+	    predicted output being a 2-length vector, with the first value being 0 or 1 if Team 1
+	    won, and the second value corresponding similarly to Team 2's result.
+
+	    <p class="lead"> </p>
+
+	    <p class="h5">Results</p>
+
+	    <p class="h6"><b>Example 1</b></p>
+	    One example case is where the first team was:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Shot-creating Slasher</b>
+	    <br />Power Forward: <b>Slashing Rim Protector</b>
+	    <br />Center: <b>Slashing Stretch Five</b>
+	    <br /><br />
+	    The second team was:
+	    <br /><br />Point Guard: <b>Shot-creating Slasher</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Sharpshooting Shot Creator</b>
+	    <br />Power Forward: <b>Rebounding Athletic Finisher</b>
+	    <br />Center: <b>Rebounding Post Scorer</b>
+
+	    <br /><br />The model prediction for this game is that Team 1 will win with a probability of 0.01645013 and Team 2
+	    will win with a probability of 0.9880592. The outcome of the game was that Team 2 won, so the prediction was
+	    correct. The model achieves in sample accuracy of 100%.
+
+
+	    <br /><br /><p class="h6"><b>Example 2</b></p>
+	    In this trial, the first team was:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Shot-creating Slasher</b>
+	    <br />Power Forward: <b>Sharpshooting Rim Protector</b>
+	    <br />Center: <b>Slashing Rebounder</b>
+
+	    The second team was:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Pure Sharpshooter</b>
+	    <br />Power Forward: <b>Slashing Rim Defender</b>
+	    <br />Center: <b>Slashing Rebounder</b>
+	    <br /><br />
+
+	    The model prediction for this game is that Team 2 will win with a probability of 0.04821634 and Team 1
+	    will win with a probability of 0.967725. The outcome of the game was that Team 1 won, so the prediction was
+	    correct. The model achieves in sample accuracy of 100%.
+
+	    <br /><br /><li class="h3">Recommendation: Optimal Players To Fill Rest of Team:</li>
+			<br /><p class="h5">Given fixed members of a team, who should the player add to the fill up
+	    the rest of the team.</p>
+
+			Users can give the model 1, 2, 3, or 4 players archetypes that they want to fix definitely,
+			and the model will output recommendations for the rest of the archetypes. The model will output a probability
+			distribution over the archetypes for the other players, with higher probability assigned to the archetypes that
+			produce higher likelihood of victory.
+
+
+			<br /><br /><p class="h5">Approach</p>
+			For this predictor, we our model using winning team combinations, and predicted recommendations for
+			users' teams based on the combinations of winning strategies in our training data.
+
+			<br /><br /><p class="h5">Results</p>
+	    <p class="h6"><b>Example 1</b></p>
+	    In this trial, the Player fixes the players:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+	    <br />Shooting Guard: <b>Pure Sharpshooter</b>
+	    <br />Small Forward: <b>Shot-creating Slasher</b>
+	    <br />Power Forward: <b>Sharpshooting Rim Protector</b>
+
+			<br /><br />The predicted optimal Center is:
+	    <br />Center: <b>Slashing Rebounder</b>
+	    <br /><br />
+	    <p class="lead"> </p>
+
+	    <p class="h6"><b>Example 2</b></p>
+	    In this trial, the Player fixes the players:
+	    <br /><br />Point Guard: <b>Sharpshooting Playmaker</b>
+
+
+			<br /><br />The predicted optimal Center is:
+	    <br />Shooting Guard: <b>Sharpshooting Defender</b>
+	    <br />Small Forward: <b>Sharpshooting Slasher</b>
+	    <br />Power Forward: <b>Sharpshooting Rim Protector</b>
+	    <br />Center: <b>Rebounding Post Scorer</b>
+	    <br /><br />
+	    <p class="lead"> </p>
+
+
+</div>

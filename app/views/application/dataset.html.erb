@@ -1,0 +1,28 @@
+<div style="padding-left: 50px; padding-top: 10px; padding-right: 50px">
+	<p class="h3">Data Collection</p>
+	<p class="lead">Immediately starting the project, we realized that the given dataset did not have data that would really help with answering the question/task at hand. Thus, we had to do our own data mining and gather our own data. We primarly used the official <a href="https://2kleague.nba.com/">2K League</a> website to find box scores, game outcomes, and information on the player archetypes. We also had to match the data found here to the video on the <a href=https://twitch.tv/nba2kleague>Twitch</a> page since player positions and archetypes could only be found in the beginning of game film. Essentially we wanted to gather rows for each player that included the unique game_id (consisting of the date concatenated with the home team), team, position, archetype, stats for that game, and the player's matchup. This way we would be able to gather any other necessary data by aggregating, grouping, and applying various functions to the dataset. Beause of the tedious nature of this task, as well as the time restraint to complete the hack, we decided to just get rows consisting of the players from games mainly from the Kings, Knicks (league champions), and Blazers (best regular season record). This way we would get an idea of what the best teams were doing to win more games as well as gear our output more towards the Kings. We ended up gathering 15 games worth of data which equated to 150 rows of data. The data can be found <a href=https://docs.google.com/spreadsheets/d/11WOiVlIud-7qQ41JFbLiXPyDGs4VKs2vHIvZ_b0KyIA/edit?usp=sharing>here</a>. From this dataset, we were able to generate a different table with a larger focus on an entire team. This second table contained rows of the instances of the teams for a game with the player archetype for each position, the total stats for the team, as well as the win/loss categorical variable</p>
+
+	<%= image_tag 'datamining.jpg', size: '500x250' %><br /><br />
+	<p class="h3">Issues/Considerations with the Data</p>
+	<p class="lead">
+		<ol>
+		<li class="h5">Restraints</li>
+			<ul>
+				<li>Since the main point of this hack was to look at the effects of the player archetypes, it was instantly apparant that we were constrained to whatever games that we had video for since that was the only place we could find the archetype data. Additionally, not every game listed on the 2K League website had corresponding video. Thus, we had to compensate by just taking random games that were available in the Twitch videos.</li>
+				<li>On July 2nd, 2018 the league updated the attributes of several archetypes, so we decided that it would be beneficial to only look at games after that date. We came to this conclusion because in order to predict or recommend a 'best' lineup, we wouldn't want to learn anything from the old values of the archetypes since that would have no correlation as to what would be relevant today. Thus, this further restrained our dataset, as we were only able to look at a portion of the season</li>
+			</ul><br />
+
+		<li class="h5">Incorrect Data</li>
+		Once we started aggregating data for the 'team' table, we noticed that there were various descrepancies with the box scores listed on the 2K League website and the overall scores listed on the website. For example, for the Knicks Gaming vs 76ers GC game on July 7th, 2018, the listed final score was 77-70, respectively. However, adding the scores in the box score showed a score of 75-70. We decided to just go with whatever the box score added up to since it was more important that our data corresponded to each other. <br /><br />
+
+		<li class="h5">Missing Data</li>
+		Going through the data, another thing we learned was we were missing data for games that went to overtime. The box score for these games did not include any data from the overtime, so the final score was simply a tie game. For these example, we dealt with them by manually entering a 1/0 for the win/loss section and leaving the box score data as is. We figured it would be better to have partial data then no data at all.<br /><br />
+
+		<li class="h5">Sparcity</li>
+		As mentioned before, we had limited time to gather all of our data. Because of this, we were only able to gather 15 games worth of data. Additionally, once we started parsing the data, we noticed that players really tended to gravitate to only around 2-3 archetypes for a position. For example, the point guards in our dataset were only made up of Shot Creating Sharpshooters and Sharpshooting Playmakers. Thus our models and data never even address the possibility of having any other archetype for a point guard. <br /><br />
+
+		<li class="h5">Other Factors/Player Variance</li>
+		One of the conclusions we made based on our analysis is that there are other factors— such as the actual player at the controls— that probably have significant impact on the effectiveness of archetypes. Another factor to consider is a hot streak. These effects probably overshadow any statistical impact caused by archetype selection.
+
+	</ol>
+</div>

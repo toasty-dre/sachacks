@@ -1,0 +1,36 @@
+<div style="padding-left: 50px; padding-top: 10px; padding-right: 50px">
+	<p class="lead">We're happy that you've found our results page for our 2018 SacHacks project! We chose to tackle the Esports project and create algorithms to select the most efficient combination of archetypes for a 2K league team, as well as find other unique insights with the data. To find out more info on our project, check out the <a href="https://github.com/michaelli321/sachacks">GitHub!</a></p>
+
+	<p class="h3">The Problem</p>
+	<%= image_tag '2kleague.jpg', size:'500x200' %>
+	<p class="lead">The Sacramento Kings participated in the inaugural NBA 2K League under the team name Kings Guard Gaming. The league lasted 17 weeks and recently concluded with the underdogs Knicks Gaming defeating Heat Check Gaming in the Championship. Unfortunately, our own Kings Guard Gaming finished last in the regular season standings.<br /><br />
+
+	Each game consist of 5 players on each team who use their own unique characters (not existing NBA players) to play one of the following positions (PG, SG, SF, PF, and C). Quarters last 6 minutes and each team is unable to switch positions during the game.<br /><br />
+
+	Each of the 5 players is required to select one of 5 archetypes for their given position before every game. The attributes/abilities that these archetypes provide widely differ. For example, some archetypes’ skillset prioritize shooting at the expense of poorer defense while others thrive at defense but have poor passing. Players are not able to change archetypes during the middle of games.<br /><br />
+
+	The league was a new experience for many organizations and teams constantly switched positions and archetypes in hopes of finding their perfect fit. Many teams that struggled to win games had trouble finding the best archetype combination for their team.<br /><br />
+
+	Based off the above information and your research, provide any or all of the following: 
+	Create an algorithm that selects the most efficient combination of archetypes for a team. 
+	Show the combinations of archetypes and their effectiveness when matched with and against each other. 
+	Any other unique findings from looking at data and information?</p>
+
+	<p class="h3">Overview of our Approach</p><br />
+	<ol>
+		<li class="h5">Data Collection</li>
+		To begin, we had to gather our own data using the 2K League website as well as the 2K League Twitch page. You can read more about the data collection process on the Dataset page! <br /><br />
+
+		<li class="h5">Understanding the Dataset</li>
+		Following that, we had to understand what we were working with. We performed basic aggregations and found distributions of various variables of our dataset to see where we were lacking and to evaluate the dataset.<br /><br />
+
+		<li class="h5">Gathered Insights</li>
+		Once we got a good understanding of the dataset, we dove deeper into it. We tried to look for various correlations and relationships that would otherwise not be seen with the naked eye. This was mainly done in R and python. Take a look at the results on our Insights page!<br /><br />
+
+		<li class="h5">Generated Models</li>
+		At this point, we had a very good idea of what made a good team, what factors played a role in winning, and which player archetypes worked well/poorly with each other. We moved forward with generating a recommendations model to encapsulate our findings. We also took a few other approaches in exploring the 'best' combination of archetypes, such as using basic basketball knowledge and heuristic. Check out the results on the Predictive Models page!<br /><br />
+
+		<li class="h5">Summarize/Conclusion</li>
+		Check out our conclusions and key insights on the Final Strategies page!
+	</ol>
+</div>
